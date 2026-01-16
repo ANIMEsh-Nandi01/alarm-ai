@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+// CAUTION: Exposing API Key on client side. Use only for personal/demo apps.
+const API_KEY = "AIzaSyDw3x6ax9xeH_2392cW5lLpuZ0BAaSFgks";
 
 // Helper to convert base64 data URL to GoogleGenerativeAI Part
 function fileToGenerativePart(base64Data) {
