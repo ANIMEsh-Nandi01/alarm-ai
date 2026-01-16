@@ -1,4 +1,3 @@
-```javascript
 import React, { useState, useEffect } from 'react';
 import CameraCapture from './CameraCapture';
 import { motion } from 'framer-motion';
