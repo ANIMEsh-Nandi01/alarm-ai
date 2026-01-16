@@ -190,6 +190,7 @@ function App() {
                   </div>
                 ) : (
                   <VerificationFlow
+                    referencePhotos={referencePhotos}
                     onVerified={stopAlarm}
                     onFail={() => alert("Verification Failed! Try again.")}
                   />
