@@ -35,11 +35,14 @@ export default function CameraCapture({ onCapture, label = "Take Photo" }) {
                     <img src={imgSrc} alt="Captured" className="w-full h-full object-cover" />
                 ) : (
                     <Webcam
+                        key={facingMode} // Force re-mount on camera switch
                         audio={false}
                         ref={webcamRef}
                         screenshotFormat="image/jpeg"
                         videoConstraints={videoConstraints}
                         className="w-full h-full object-cover"
+                        forceScreenshotSourceSize={true}
+                        mirrored={facingMode === "user"} // Mirror only front camera
                     />
                 )}
             </div>

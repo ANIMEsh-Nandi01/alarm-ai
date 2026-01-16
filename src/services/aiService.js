@@ -26,35 +26,34 @@ export async function verifyEnvironment(referencePhotos, livePhotos, userApiKey 
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const prompt = `
-      You are an environment verification system for an alarm clock.
-      I will provide reference photos of a user's bedroom (the first 3 images) and new "live" photos (the last 2 images).
+      You are an environment verification system.
+      Compare the first 3 reference photos with the last 2 live photos.
+      Do they depict the same room?
       
-      Task: Determine if the "live" photos depict the same physical room/environment as the reference photos.
-      - Ignore minor lighting changes (day vs night).
-      - Ignore small angle changes.
-      - Focus on furniture, wall color, bed style, and overall layout.
-      
-      Return ONLY valid JSON in this format:
-      {
-        "match": boolean,
-        "confidence": number, // 0 to 1
-        "reason": "short explanation"
-      }
+      Return JSON: { "match": boolean, "reason": "string" }
     `;
 
+        // Debug logging
+        console.log("Sending to Gemini:", { refCount: referencePhotos.length, liveCount: livePhotos.length });
+
         const imageParts = [
-            ...referencePhotos.map(fileToGenerativePart),
-            ...livePhotos.map(fileToGenerativePart)
+            ...referencePhotos.map(p => fileToGenerativePart(p)),
+            ...livePhotos.map(p => fileToGenerativePart(p))
         ];
 
-        const result = await model.generateContent([prompt, ...imageParts]);
-        const response = await result.response;
-        const text = response.text();
+        try {
+            const result = await model.generateContent([prompt, ...imageParts]);
+            const response = await result.response;
+            const text = response.text();
+            console.log("Gemini Response:", text);
 
-        // Clean code blocks if present
-        const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
-
-        return JSON.parse(jsonStr);
+            // Clean and parse
+            const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
+            return JSON.parse(jsonStr);
+        } catch (apiError) {
+            console.error("Gemini API Call Failed:", apiError);
+            throw apiError; // Re-throw to be caught by outer catch
+        }
 
     } catch (error) {
         console.error("Gemini API Error:", error);
