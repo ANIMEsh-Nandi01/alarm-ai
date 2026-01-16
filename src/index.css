@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --app-bg: #0f172a;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* Prevent scrolling for the app-like feel */
+  @apply antialiased;
+}
+
+/* Custom Glass Utilities if needed beyond Tailwind */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.liquid-gradient-1 {
+  background: linear-gradient(135deg, #FF0080 0%, #7928CA 100%);
+}
+.liquid-gradient-2 {
+  background: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
+}
+.liquid-gradient-3 {
+  background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+}
