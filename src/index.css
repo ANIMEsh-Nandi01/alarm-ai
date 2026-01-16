@@ -12,7 +12,9 @@ body {
   background-color: var(--app-bg);
   color: white;
   font-family: 'Inter', sans-serif;
-  overflow: hidden; /* Prevent scrolling for the app-like feel */
+  overflow-y: auto;
+  /* Allow scrolling for small screens */
+  overflow-x: hidden;
   @apply antialiased;
 }
 
@@ -28,9 +30,11 @@ body {
 .liquid-gradient-1 {
   background: linear-gradient(135deg, #FF0080 0%, #7928CA 100%);
 }
+
 .liquid-gradient-2 {
   background: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
 }
+
 .liquid-gradient-3 {
   background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
 }
